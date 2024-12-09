@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="css/style3.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Ablat's Pension House</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Ablat's Pension House</h1>
+            <p>Your perfect stay awaits. Book your dream hotel today!</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <h2>Hotel Gallery</h2>
+        <div class="gallery-container">
+            <div class="gallery-item" onclick="showBookingForm()">
+                <img src="css/room10.jpg" alt="Room 1" name="room1">
+            </div>
+            <div class="gallery-item" onclick="showBookingForm()">
+                <img src="css/room4.jpg" alt="Room 2" name="room2">
+            </div>
+            <div class="gallery-item" onclick="showBookingForm()">
+                <img src="css/room7.jpg" alt="Room 3" name="room3">
+            </div>
+            <div class="gallery-item" onclick="showBookingForm()">
+                <img src="css/room6.jpg" alt="Hotel Lobby" name="room4">
+            </div>
+            <div class="gallery-item" onclick="showBookingForm()">
+                <img src="css/room3.jpg" alt="Swimming Pool" name="room5">
+            </div>
+            <div class="gallery-item" onclick="showBookingForm()">
+                <img src="css/room2.jpg" alt="Restaurant" name="room6">
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <div class="booking-container" id="booking-form">
+        <div class="close">
+            <span onclick="hideBookingForm()">X</span>
+        </div>
+        <form id="bookingForm">
+            <label for="guest">Name of Guest:</label>
+            <input type="text" id="guest" name="guest" required>
+
+            <label for="check-in">Check-in Date:</label>
+            <input type="date" id="check_in" name="check_in" required>
+
+            <label for="check-out">Check-out Date:</label>
+            <input type="date" id="check_out" name="check_out" required>
+
+            <label for="guests">Number of Guests:</label>
+            <input type="number" id="guests" name="guests" min="1" required>
+            <label style="color:orangered;" name="price">P2500.00</label>
+
+            <button type="button" onclick="saveBooking()">Book Now</button>
+        </form>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>P-6, Pag-Antayan, Cantilan, Surigao del Sur</p>
+        <p>Mobile: 09197976448</p>
+        <p>Landline: 212-5594</p>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Ablat's Pension House. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Show and hide booking form
+function hideBookingForm() {
+    document.getElementById('booking-form').style.display = 'none';
+}
+
+function showBookingForm() {
+    document.getElementById('booking-form').style.display = 'block';
+}
+
+// Save booking data locally
+function saveBooking() {
+    const guest = document.getElementById('guest').value;
+    const checkIn = document.getElementById('check_in').value;
+    const checkOut = document.getElementById('check_out').value;
+    const guests = document.getElementById('guests').value;
+    const price = 2500; // Fixed price for booking
+
+    if (!guest || !checkIn || !checkOut || !guests) {
+        alert('Please fill in all the fields.');
+        return;
+    }
+
+    // Create a booking object
+    const booking = {
+        guest,
+        checkIn,
+        checkOut,
+        guests,
+        price // Add the price to the booking object
+    };
+
+    // Retrieve existing bookings from localStorage
+    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+    // Add the new booking to the list
+    bookings.push(booking);
+
+    // Save the updated bookings list back to localStorage
+    localStorage.setItem('bookings', JSON.stringify(bookings));
+
+    alert('Booking saved successfully!');
+
+    // Clear the form and hide it
+    document.getElementById('bookingForm').reset();
+    hideBookingForm();
+}
+
+    </script>
+</body>
+</html>
